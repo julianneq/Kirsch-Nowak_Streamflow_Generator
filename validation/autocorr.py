@@ -42,7 +42,6 @@ def makeReal_v_logPlots(tStep):
     H = np.loadtxt('historical/'+site+'-' + tStep + '.csv', delimiter=',')
     H = H.reshape((np.shape(H)[0]*np.shape(H)[1],))
     S = np.loadtxt('synthetic/'+site+'-100x100-' + tStep + '.csv', delimiter=',')
-    #S5 = np.loadtxt('synthetic-n5/'+site+'.csv', delimiter=',') 
     Hl = np.log(H)
     Sl = np.log(S)
     
@@ -59,10 +58,6 @@ def makeReal_v_logPlots(tStep):
     for k in range(100):
       r2 = acf(S[k,:], nlags=nlags)
       h[0], = ax.step(range(nlags+1),r2, color='steelblue')
-    
-    # for k in range(100):
-    #   r2 = acf(S5[k,:], nlags=nlags)
-    #   h[0], = plt.step(range(nlags+1),r2, color='steelblue')
     
     # http://statsmodels.sourceforge.net/devel/generated/statsmodels.tsa.stattools.acf.html
     r1, ci1 = acf(H, nlags=nlags, alpha=0.05)
@@ -83,15 +78,6 @@ def makeReal_v_logPlots(tStep):
     # plt.title('Real Space')
     sns.despine(left=True)  
     ax.xaxis.grid(False)
-    
-    # plt.plot([0,nlags],[0,0], color='k', linestyle='--', linewidth=2)
-    
-    
-    # This test rejects for a lot of lags -- not good. 
-    # it's because the "sample size" is so big, is that right??
-    # p = fisher_test(r1, r2, len(H), len(S[k,:]))
-    # print p
-    # how straight-up do we want to be here?
     
     
     ax = fig.add_subplot(1,2,2)
@@ -124,8 +110,6 @@ def makeReal_v_logPlots(tStep):
     
     fig.tight_layout()
     fig.set_size_inches([9.8125, 4.3])
-    #fig.savefig('autocorr-' + tStep + '.png')
-    #fig.savefig('autocorr-' + tStep + '.svg')
     fig.savefig('autocorr-' + tStep + '.pdf')
     fig.show()
 
@@ -152,10 +136,6 @@ def makeMonthly_v_DailyPlots(space):
         for k in range(100):
           r2 = acf(S[k,:], nlags=nlags[j])
           h[0], = ax.step(range(nlags[j]+1),r2, color='steelblue')
-        
-        # for k in range(100):
-        #   r2 = acf(S5[k,:], nlags=nlags)
-        #   h[0], = plt.step(range(nlags+1),r2, color='steelblue')
         
         # http://statsmodels.sourceforge.net/devel/generated/statsmodels.tsa.stattools.acf.html
         r1, ci1 = acf(H, nlags=nlags[j], alpha=0.05)
@@ -186,34 +166,4 @@ makeReal_v_logPlots('monthly')
 makeReal_v_logPlots('daily')
 makeMonthly_v_DailyPlots('real')
 makeMonthly_v_DailyPlots('log')
-
-# the "real" correlograms from scipy are below:
-
-# ax = plt.subplot(2,2,1)
-# plot_acf(H[start:], lags=nlags, ax=ax)
-# plt.ylabel('Autocorrelation')
-# plt.title('Historical, real space')
-# plt.tight_layout()
-
-
-# ax = plt.subplot(2,2,2)
-# plot_acf(S[k,start:], lags=nlags, ax=ax)
-# plt.title('Synthetic, real space')
-# plt.tight_layout()
-
-# ax = plt.subplot(2,2,3)
-# plot_acf(Hl[start:], lags=nlags, ax=ax)
-# plt.xlabel('lag (weeks)')
-# plt.ylabel('Autocorrelation')
-# plt.title('Historical, log space')
-# plt.tight_layout()
-
-
-# ax = plt.subplot(2,2,4)
-# plot_acf(Sl[k,start:], lags=nlags, ax=ax)
-# plt.xlabel('lag (weeks)')
-# plt.title('Synthetic, log space')
-# plt.tight_layout()
-
-# plt.show()
 
