@@ -1,1 +1,1 @@
-# Kirsch-Nowak_StreamflowGenerator
+# Kirsch-Nowak_Streamflow_Generator
