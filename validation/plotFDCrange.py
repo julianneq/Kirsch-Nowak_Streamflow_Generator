@@ -24,21 +24,26 @@ def plotFDCrange(syntheticData, histData, sites, evapIndices):
     
     fig = plt.figure()
     for j in range(np.shape(histData)[1]):
+        # load data for site j
         histData_j = histData[:,j]
         syntheticData_j = syntheticData[:,j]
         f_hist = np.reshape(histData_j, (len(histData_j)/n, n))
         f_syn = np.reshape(syntheticData_j, (len(syntheticData_j)/n, n))
+        
+        # calculate historical FDCs
         F_hist = np.empty(np.shape(f_hist))
         F_hist[:] = np.NaN
         for k in range(np.shape(F_hist)[0]):
             F_hist[k,:] = np.sort(f_hist[k,:],0)[::-1]
             
+        # calculate synthetic FDCs
         F_syn = np.empty(np.shape(f_syn))
         F_syn[:] = np.NaN
         for k in range(np.shape(F_syn)[0]):
             F_syn[k,:] = np.sort(f_syn[k,:],0)[::-1]
             
         ax = fig.add_subplot(2,2,j+1)
+        # plot min and max at each percentile
         if j in evapIndices:
             ax.plot(P,np.min(F_syn,0),c='k',label='Synthetic')
             ax.plot(P,np.max(F_syn,0),c='k',label='Synthetic')
@@ -52,6 +57,7 @@ def plotFDCrange(syntheticData, histData, sites, evapIndices):
             ax.semilogy(P,np.max(F_hist,0),c='#bdbdbd',label='Historical')
             ax.set_ylabel('Flow (cfs)')
         
+        # fill between min and max to show range of FDCs
         ax.fill_between(P, np.min(F_syn,0), np.max(F_syn,0), color='k')
         ax.fill_between(P, np.min(F_hist,0), np.max(F_hist,0), color='#bdbdbd')
         ax.set_title(sites[j],fontsize=18)
@@ -65,7 +71,7 @@ def plotFDCrange(syntheticData, histData, sites, evapIndices):
         plt.grid(True,which='both',ls='-')
         
     fig.subplots_adjust(bottom=0.2,wspace=0.32)
-    fig.legend(handles, labels, fontsize=18,loc='lower center',ncol=2)
+    fig.legend(handles, labels, fontsize=18,loc='lower center',ncol=2, frameon=True)
     fig.text(0.5,0.1,'Probability of Exceedance',ha='center',fontsize=18)
     fig.savefig('figures/FDCs.pdf')
     fig.clf()

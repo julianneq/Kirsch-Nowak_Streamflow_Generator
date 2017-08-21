@@ -56,10 +56,11 @@ def boxplots(syn, hist, xticks=True, legend=True, loc='upper right'):
 # Make statistical validation plots of monthly moments for Marietta
 space = ['real','log']
 legend_loc = ['upper right','lower left']
+site = 'qMarietta'
 for j in range(2):
-    H = np.loadtxt('historical/qMarietta-monthly.csv', delimiter=',') # nyears x 12
-    S = np.loadtxt('synthetic/qMarietta-100x100-monthly.csv', delimiter=',') # 100 x 1200
-    S = S.reshape((np.shape(S)[0],int(np.shape(S)[1]/12),12)) # 100 x 100 x 12
+    H = np.loadtxt('historical/' + site + '-monthly.csv', delimiter=',') # n_historical_years x 12
+    S = np.loadtxt('synthetic/' + site + '-100x100-monthly.csv', delimiter=',') # n_realizations x 12*n_synthetic_years
+    S = S.reshape((np.shape(S)[0],int(np.shape(S)[1]/12),12)) # n_realizations x n_synthetic_years x 12
     
     # j = 0: real-space, j=1: log-space
     if j == 1:
@@ -71,7 +72,7 @@ for j in range(2):
     r = np.random.randint(N, size=(N, num_resamples))
     
     fig = plt.figure()
-    # Boxplot of monthly totals from 10,000 synthetic years and all historical years
+    # Boxplot of monthly totals from n_realizations*n_synthetic_years and all historical years
     ax = fig.add_subplot(5,1,1)
     boxplots(S.reshape((np.shape(S)[0]*np.shape(S)[1],12)), H, xticks=False, legend=True, loc=legend_loc[j])
     if j == 0:
@@ -79,12 +80,12 @@ for j in range(2):
     else:
         ax.set_ylabel('Log Space Q\n log(ft$\mathregular{^3}\!$/month)')
     
-    # Monthly means from 10,000 synthetic years and 10,000 bootstrapped samples of historical years
+    # Monthly means from n_realizations of n_synthetic_years and n_realizations of bootstrapped historical years
     ax = fig.add_subplot(5,1,2)
     boxplots(S.mean(axis=1), H[r].mean(axis=0), xticks=False, legend=False)
     ax.set_ylabel('$\hat{\mu}_Q$')
     
-    # Monthly standard deviations across 10,000 synthetic years and 10,000 bootstrapped samples of historical years
+    # Monthly standard deviations across n_realizations of n_synthetic_years and n_realizations of bootstrapped historical years
     ax = fig.add_subplot(5,1,3)
     boxplots(S.std(axis=1), H[r].std(axis=0), xticks=False, legend=False)
     ax.set_ylabel('$\hat{\sigma}_Q$')

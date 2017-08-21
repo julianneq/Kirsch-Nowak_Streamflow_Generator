@@ -11,8 +11,8 @@ from scipy import stats
 def init_plotting():
     '''Sets plotting characteristics'''
     sns.set_style('whitegrid')
-    plt.rcParams['figure.figsize'] = (8,4)
-    plt.rcParams['font.size'] = 15
+    plt.rcParams['figure.figsize'] = (14,8)
+    plt.rcParams['font.size'] = 16
     plt.rcParams['font.family'] = 'Source Sans Pro'
     plt.rcParams['axes.labelsize'] = 1.1*plt.rcParams['font.size']
     plt.rcParams['axes.titlesize'] = 1.1*plt.rcParams['font.size']
@@ -68,95 +68,8 @@ rh = np.zeros((n_bootstrap,n_pairs))
 rs = np.zeros((100,n_pairs))
 rhl = np.zeros((n_bootstrap,n_pairs))
 rsl = np.zeros((100,n_pairs))
-
-# plot real space and log space side by side, with a separate plot for monthly and daily
-# t = 0: monthly, t = 1: daily
-for t in range(2):
-  ct = 0
-  for i in range(len(sites)-1):
-    for j in range(i+1,len(sites)):
-      site1 = sites[i]
-      site2 = sites[j]
-      Hi = np.loadtxt('historical/' + site1 + tStep[t] + '.csv', delimiter=',').flatten()
-      Hj = np.loadtxt('historical/' + site2 + tStep[t] + '.csv', delimiter=',').flatten()
-      Si = np.loadtxt('synthetic/' + site1 + '-1000x1' + tStep[t] + '.csv', delimiter=',')
-      Sj = np.loadtxt('synthetic/' + site2 + '-1000x1' + tStep[t] + '.csv', delimiter=',')
-      
-      # convert evaporation from normal to log-normal
-      if i in evapIndices:
-        Hi = np.exp(Hi)
-        Si = np.exp(Si)
-      if j in evapIndices:
-        Hj = np.exp(Hj)
-        Sj = np.exp(Sj)
-        
-      Hil = np.log(Hi)
-      Hjl = np.log(Hj)
-      Sil = np.log(Si)
-      Sjl = np.log(Sj)
-
-      for k in range(n_bootstrap):
-        ix = np.random.randint(len(Hi), size=(len(Hi),))
-        rh[k,ct] = pearsonr(Hi[ix],Hj[ix])[0]
-        rs[k,ct] = pearsonr(Si[k,:],Sj[k,:])[0]
-        rhl[k,ct] = pearsonr(Hil[ix],Hjl[ix])[0]
-        rsl[k,ct] = pearsonr(Sil[k,:],Sjl[k,:])[0]
-
-      ct += 1
-      print ct
-
-  fig = plt.figure()
-  ax = fig.add_subplot(1,2,1)
-  boxplots(rs, rh, n_pairs, xticks=True, legend=False)
-  ax.set_ylim([-1,1])
-  ax.set_xlabel('Pairs of Sites')
-  ax.set_title('Real Space')
-
-  ax = fig.add_subplot(1,2,2)
-  boxplots(rsl, rhl, n_pairs, xticks=True)
-  ax.set_ylim([-1,1])
-  ax.set_yticklabels([])
-  ax.set_xlabel('Pairs of Sites')
-  ax.set_title('Log Space')
-
-  fig.tight_layout()
-  fig.subplots_adjust(top=0.8)
-  fig.suptitle('Pairwise Correlation at ' + titleStep[t] + ' Time Step', fontsize=16)
-  fig.savefig('figures/spatial-corr-dist' + tStep[t] + '.pdf')
-  fig.clf()
   
-  # hypothesis testing
-  pvals = np.zeros([n_pairs,2])
-  for k in range(n_pairs):
-    tstat = stats.ranksums(rh[:,k], rs[:,k])
-    pvals[k,0] = tstat[1]
-    tstat = stats.ranksums(rhl[:,k], rsl[:,k])
-    pvals[k,1] = tstat[1]
-    
-  fig = plt.figure()
-  ax = fig.add_subplot(2,1,1)
-  ax.bar(np.arange(1,n_pairs+1)-0.4, pvals[:,0], facecolor='0.7', edgecolor='None')
-  ax.set_xlim([0,n_pairs+1])
-  ax.plot([0,14],[0.05,0.05], color='k')
-  ax.set_xticks([])
-  ax.set_yticks(np.arange(0.0,1.1,0.2))
-  ax.set_ylabel('Rank-sum $p$\n (real space)')
-    
-  ax = fig.add_subplot(2,1,2)
-  ax.bar(np.arange(1,n_pairs+1)-0.4, pvals[:,1], facecolor='0.7', edgecolor='None')
-  ax.set_xlim([0,n_pairs+1])
-  ax.plot([0,14],[0.05,0.05], color='k')
-  ax.set_yticks(np.arange(0.0,1.1,0.2))
-  ax.set_xlabel('Month of Year')
-  ax.set_ylabel('Rank-sum $p$\n (log space)')
-  
-  fig.tight_layout()
-  fig.subplots_adjust(top=0.8)
-  fig.suptitle('Statistical Differences in Pairwise Correlation at ' + titleStep[t] + ' Time Step', fontsize=16)
-  fig.savefig('figures/spatial-corr-ranksum' + tStep[t] + '.pdf')
-  fig.clf()
-  
-# plot daily and monthly side by side, with a separate plot for each space (real vs. log)
+# plot daily and monthly side by side, with a separate plot for each space (real or log)
 space = ['-real','-log']
 titleSpace = ['Real','Log']
 for k in range(len(space)):
@@ -192,7 +105,8 @@ for k in range(len(space)):
             ct += 1
             print ct
         
-        ax = fig.add_subplot(1,2,t+1)
+        # make pairwise boxplots
+        ax = fig.add_subplot(2,2,t+1)
         if t == 0:
             boxplots(rs, rh, n_pairs, xticks=True, legend=False)
         else:
@@ -205,37 +119,28 @@ for k in range(len(space)):
         if t == 1:
             ax.set_yticklabels([])
             
-        # hypothesis testing
-        pvals = np.zeros([n_pairs,2])
+        # perform hypothesis tests
+        pvals = np.zeros([n_pairs])
         for m in range(n_pairs):
             tstat = stats.ranksums(rh[:,m], rs[:,m])
-            pvals[m,t] = tstat[1]
-        
-    fig.tight_layout()
-    fig.subplots_adjust(top=0.8)
-    fig.suptitle(titleSpace[k] + ' Space Pairwise Correlation', fontsize=16)
-    fig.savefig('figures/spatial-corr-dist' + space[k] + '.pdf')
-    fig.clf()
+            pvals[m] = tstat[1]
       
-    fig = plt.figure()
-    ax = fig.add_subplot(2,1,1)
-    ax.bar(np.arange(1,n_pairs+1)-0.4, pvals[:,0], facecolor='0.7', edgecolor='None')
-    ax.set_xlim([0,n_pairs+1])
-    ax.plot([0,14],[0.05,0.05], color='k')
-    ax.set_xticks([])
-    ax.set_yticks(np.arange(0.0,1.1,0.2))
-    ax.set_ylabel('Rank-sum $p$\n (Monthly)')
-        
-    ax = fig.add_subplot(2,1,2)
-    ax.bar(np.arange(1,n_pairs+1)-0.4, pvals[:,1], facecolor='0.7', edgecolor='None')
-    ax.set_xlim([0,n_pairs+1])
-    ax.plot([0,14],[0.05,0.05], color='k')
-    ax.set_yticks(np.arange(0.0,1.1,0.2))
-    ax.set_xlabel('Pairs of Sites')
-    ax.set_ylabel('Rank-sum $p$\n (Daily)')
+        ax = fig.add_subplot(2,2,t+3)
+        ax.bar(np.arange(1,n_pairs+1)-0.4, pvals, facecolor='0.7', edgecolor='None')
+        ax.set_xlim([0,n_pairs+1])
+        ax.set_ylim([0,1])
+        ax.plot([0,14],[0.05,0.05], color='k')
+        ax.set_xticks(range(1,7))
+        ax.set_yticks(np.arange(0.0,1.1,0.2))
+        if t == 1:
+            ax.set_yticklabels([])
+        else:
+            ax.set_ylabel('Rank-sum $p$')
+            
+        ax.set_xlabel('Pairs of Sites')
       
     fig.tight_layout()
-    fig.subplots_adjust(top=0.8)
-    fig.suptitle('Statistical Differences in Pairwise Correlation', fontsize=16)
-    fig.savefig('figures/spatial-corr-ranksum' + space[k] + '.pdf')
+    fig.subplots_adjust(top=0.9,wspace=0.1)
+    fig.suptitle(titleSpace[k] + ' Space Pairwise Correlation', fontsize=18)
+    fig.savefig('figures/spatial-corr' + space[k] + '.pdf')
     fig.clf()
