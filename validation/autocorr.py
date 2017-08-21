@@ -6,11 +6,11 @@ from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.tsa.stattools import acf
 from scipy.stats import norm
 
-
 def init_plotting():
+    '''Sets plotting characteristics'''
     sns.set_style('whitegrid')
-    plt.rcParams['figure.figsize'] = (5, 3)
-    plt.rcParams['font.size'] = 13
+    plt.rcParams['figure.figsize'] = (10, 4)
+    plt.rcParams['font.size'] = 15
     plt.rcParams['font.family'] = 'Source Sans Pro'
     plt.rcParams['axes.labelsize'] = 1.1*plt.rcParams['font.size']
     plt.rcParams['axes.titlesize'] = 1.1*plt.rcParams['font.size']
@@ -20,36 +20,18 @@ def init_plotting():
 
 init_plotting()
 
-# from: http://www.real-statistics.com/correlation/two-sample-hypothesis-testing-correlation/
-# two-tailed Z test
-def fisher_test(r1, r2, n1, n2):
-  # fix number of samples: http://www.ltrr.arizona.edu/~dmeko/notes_9.pdf
-  # "effective" sample size (Mitchell et al. 1966)
-  lags = np.arange(len(r1))
-  n1 = n1*(1-r1[1])/(1+r1[1])-lags-3
-  n2 = n2*(1-r2[1])/(1+r2[1])-lags-3
-
-  r1 = np.arctanh(r1)
-  r2 = np.arctanh(r2) # fisher transformation
-  s = np.sqrt(1/n1 + 1/n2)
-  Z = np.abs(r1-r2)/s
-  p = 2*(1 - norm.cdf(Z))
-  return p
-
-
-def makeReal_v_logPlots(tStep):
-    site = 'tabu'
-    H = np.loadtxt('historical/'+site+'-' + tStep + '.csv', delimiter=',')
+def makeReal_v_logPlots(site, tStep):
+    ''''bla bla bla'''
+    H = np.loadtxt('historical/' + site + '-' + tStep + '.csv', delimiter=',')
     H = H.reshape((np.shape(H)[0]*np.shape(H)[1],))
-    S = np.loadtxt('synthetic/'+site+'-100x100-' + tStep + '.csv', delimiter=',')
+    S = np.loadtxt('synthetic/' + site + '-100x100-' + tStep + '.csv', delimiter=',')
     Hl = np.log(H)
     Sl = np.log(S)
     
-    k = 2
     if tStep == 'monthly':
-        nlags = 12
+        nlags = 12 # show all lags
     elif tStep == 'daily':
-        nlags = 365
+        nlags = 30 # only show up to 30 lags
     
     fig = plt.figure()
     ax = fig.add_subplot(1,2,1)
@@ -65,20 +47,17 @@ def makeReal_v_logPlots(tStep):
     h[2], = ax.step(range(nlags+1),ci1[:,0], color='k', linestyle='solid', linewidth=1)
     ax.step(range(nlags+1),ci1[:,1], color='k', linestyle='solid', linewidth=1)
     ax.set_xlim([-0.5,nlags])
-    ax.set_ylim([-1.0,1.0])
     ax.set_title('Real Space')
-    
     
     ax.legend(h, ['Synthetic', 'Historical', '95% CI'], loc='upper center')
     if tStep == 'monthly':
         ax.set_xlabel('Lag (months)')
+        ax.set_ylim([-1.0,1.0])
     elif tStep == 'daily':
         ax.set_xlabel('Lag (days)')
-    # plt.ylabel('ACF')
-    # plt.title('Real Space')
+        ax.set_ylim([0.0,1.0])
     sns.despine(left=True)  
     ax.xaxis.grid(False)
-    
     
     ax = fig.add_subplot(1,2,2)
     
@@ -94,39 +73,35 @@ def makeReal_v_logPlots(tStep):
     ax.set_ylim([-1.0,1.0])
     ax.set_title('Log Space')
     
-    
-    # plt.legend(h, ['Synthetic', 'Historical', '95% CI'])
     if tStep == 'monthly':
         ax.set_xlabel('Lag (months)')
+        ax.set_ylim([-1.0,1.0])
     elif tStep == 'daily':
         ax.set_xlabel('Lag (days)')
-    ax.set_yticklabels([])
-    # plt.ylabel('ACF')
-    # plt.plot([0,nlags],[0,0], color='k', linestyle='--', linewidth=2)
-    # plt.title('Log Space')
+        ax.set_ylim([0.0,1.0])
     sns.despine(left=True)  
     ax.xaxis.grid(False)
     
-    
     fig.tight_layout()
-    fig.set_size_inches([9.8125, 4.3])
-    fig.savefig('autocorr-' + tStep + '.pdf')
-    fig.show()
+    fig.savefig('figures/autocorr-' + tStep + '.pdf')
+    fig.clf()
 
-def makeMonthly_v_DailyPlots(space):
-    site = 'tabu'
-    k = 2
-    nlags = [12,365]
+def makeMonthly_v_DailyPlots(site, space):
+    ''''bla bla bla'''
+    nlags = [12,30] # find correlation at all lags for months, but only up to 30 days
     
     fig = plt.figure()
-    titles = ['Monthly Autocorrelation','Daily Autocorrelation']
     xlabels = ['Lag (months)','Lag (days)']
     tStep = ['monthly','daily']
+    if space == 'real':
+        title = 'Real'
+    else:
+        title = 'Log'
     
     for j in range(len(nlags)):
-        H = np.loadtxt('historical/'+site+'-' + tStep[j] + '.csv', delimiter=',')
+        H = np.loadtxt('historical/' + site + '-' + tStep[j] + '.csv', delimiter=',')
         H = H.reshape((np.shape(H)[0]*np.shape(H)[1],))
-        S = np.loadtxt('synthetic/'+site+'-100x100-' + tStep[j] + '.csv', delimiter=',')
+        S = np.loadtxt('synthetic/' + site + '-100x100-' + tStep[j] + '.csv', delimiter=',')
         if space == 'log':
             H = np.log(H)
             S = np.log(S)
@@ -143,27 +118,26 @@ def makeMonthly_v_DailyPlots(space):
         h[2], = ax.step(range(nlags[j]+1),ci1[:,0], color='k', linestyle='solid', linewidth=1)
         ax.step(range(nlags[j]+1),ci1[:,1], color='k', linestyle='solid', linewidth=1)
         ax.set_xlim([-0.5,nlags[j]])
-        ax.set_ylim([-1.0,1.0])
-        ax.set_title(titles[j])
+        if tStep[j] == 'monthly':
+            ax.set_ylim([-1.0,1.0])
+        else:
+            ax.set_ylim([0.0,1.0])
         
         if j == 0:
             ax.legend(h, ['Synthetic', 'Historical', '95% CI'], loc='upper center')
         
         ax.set_xlabel(xlabels[j])
-        # plt.ylabel('ACF')
-        # plt.title('Real Space')
         sns.despine(left=True)  
         ax.xaxis.grid(False)
     
     fig.tight_layout()
-    fig.set_size_inches([9.8125, 4.3])
-    fig.savefig('autocorr-' + space + '.pdf')
-    fig.savefig('autocorr-' + space + '.png')
-    fig.savefig('autocorr-' + space + '.svg')
+    fig.subplots_adjust(top=0.85)
+    fig.suptitle(title + ' Space Autocorrelation',fontsize=16)    
+    fig.savefig('figures/autocorr-' + space + '.pdf')
     fig.show()
 
-makeReal_v_logPlots('monthly')
-makeReal_v_logPlots('daily')
-makeMonthly_v_DailyPlots('real')
-makeMonthly_v_DailyPlots('log')
+makeReal_v_logPlots('qMarietta','monthly')
+makeReal_v_logPlots('qMarietta','daily')
+makeMonthly_v_DailyPlots('qMarietta','real')
+makeMonthly_v_DailyPlots('qMarietta','log')
 
