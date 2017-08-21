@@ -1,6 +1,21 @@
+'''Plots the ranges spanned by historical (black) and synthetic (gray)flow
+duration curves for each year of the historical and synthetic records at all
+sites. The list of sites can be changed on line 98. Indices of sites for which
+the data is evaporation rather than flows can be changed on line 99.'''
+
 import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
+import os
+
+# https://justgagan.wordpress.com/2010/09/22/python-create-path-or-directories-if-not-exist/
+def assure_path_exists(path):
+    '''Creates directory if it doesn't exist'''
+    dir = os.path.dirname(path)
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
+assure_path_exists(os.getcwd() + '/figures/')
 
 def init_plotting():
     '''Sets plotting characteristics'''

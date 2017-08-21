@@ -1,3 +1,10 @@
+'''Makes boxplots of bootstrapped historical monthly flows (pink) and synthetic
+monthly flows (blue) as well as their means and standard deviations at
+Marietta. Also plots p-values from rank-sum test for differences in the median
+between historical and synthetic flows and from Levene's test for differences
+in the variance between historical and synthetic flows. The site being plotted
+can be changed on line 76.'''
+
 from __future__ import division
 import numpy as np 
 import matplotlib
@@ -5,6 +12,16 @@ import matplotlib.pyplot as plt
 import pandas as pd 
 import seaborn as sns
 from scipy import stats
+import os
+
+# https://justgagan.wordpress.com/2010/09/22/python-create-path-or-directories-if-not-exist/
+def assure_path_exists(path):
+    '''Creates directory if it doesn't exist'''
+    dir = os.path.dirname(path)
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+                
+assure_path_exists(os.getcwd() + '/figures/')
 
 def init_plotting():
     '''Sets plotting characteristics'''

@@ -1,3 +1,9 @@
+'''Makes boxplots of pairwise spatial correlations in bootstrapped historical
+(pink) and synthetic (blue) monthly flows. Also plots p-values from rank-sum
+test for differences in the median between historical and synthetic flows. The
+list of sites can be changed on line 75. Indices of sites for which the data is
+evaporation rather than flows can be changed on line 76.'''
+
 from __future__ import division
 import numpy as np 
 import matplotlib
@@ -7,6 +13,16 @@ from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.tsa.stattools import acf
 from scipy.stats import norm,pearsonr
 from scipy import stats
+import os
+
+# https://justgagan.wordpress.com/2010/09/22/python-create-path-or-directories-if-not-exist/
+def assure_path_exists(path):
+    '''Creates directory if it doesn't exist'''
+    dir = os.path.dirname(path)
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+                
+assure_path_exists(os.getcwd() + '/figures/')
 
 def init_plotting():
     '''Sets plotting characteristics'''

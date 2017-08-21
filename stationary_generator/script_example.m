@@ -52,6 +52,8 @@ clc
 num_realizations = [100, 1000];
 num_years = [100, 1];
 dimensions = {'-100x100','-1000x1'};
+% directory to write output to
+mkdir('./../validation/synthetic');
 for k=1:2
     Qd_cg = combined_generator(Qdaily, num_realizations(k), num_years(k) );
     % back-transform evaporation

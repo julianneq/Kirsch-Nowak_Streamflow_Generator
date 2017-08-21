@@ -31,9 +31,12 @@ dlmwrite('./../data/Qdaily.txt', Qfinal, ' ');
 % reshape into nyears x 365 and nyears x 12 for daily and monthly 
 % statistical validation figures
 Qfinal_monthly = convert_data_to_monthly(Qfinal);
-% divide evaporation by 86400 (s/day) to get total monthly evap in mm/month
+% divide evaporation by 86400 (s/day) to get total monthly evap in in/month
 Qfinal_monthly{4} = Qfinal_monthly{4}/86400;
 Qfinal_monthly{5} = Qfinal_monthly{5}/86400;
+
+% create directories to write files to
+mkdir('./../validation/historical');
 for i=1:length(files)
    q_nx365 = reshape(Qfinal(:,i),365, [])';
    dlmwrite(['./../validation/historical/' files{i}(1:(length(files{i})-14)) '-daily.csv'], q_nx365);

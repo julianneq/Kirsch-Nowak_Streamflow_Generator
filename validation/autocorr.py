@@ -1,3 +1,9 @@
+'''Plots the autocorrelation function (acf) and 95\% confidence intervals for
+the historical flows at Marietta (black), as well as the realizations from the
+synthetic flows (blue). This is done for up to 12 lags at a monthly time step
+and 30 lags at a daily time step. The site whose acf is plotted can be changed
+on line 39.'''
+
 from __future__ import division
 import numpy as np 
 import matplotlib.pyplot as plt
@@ -5,6 +11,16 @@ import seaborn as sns
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.tsa.stattools import acf
 from scipy.stats import norm
+import os
+
+# https://justgagan.wordpress.com/2010/09/22/python-create-path-or-directories-if-not-exist/
+def assure_path_exists(path):
+    '''Creates directory if it doesn't exist'''
+    dir = os.path.dirname(path)
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+                
+assure_path_exists(os.getcwd() + '/figures/')
 
 def init_plotting():
     '''Sets plotting characteristics'''
