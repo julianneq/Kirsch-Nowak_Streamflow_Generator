@@ -3,12 +3,12 @@ This directory contains MATLAB code for generating correlated synthetic daily st
 
 An example of how to run the generator is provided here for the Susquehanna River Basin. The historical data for the Susquehanna flows at Marietta and Muddy Run from 1932-2001 are given in `../data` along with lateral inflows between Marietta and Conowingo Dam and evaporation rates over the Conowingo and Muddy Run Dams. Lateral inflows were scaled from Marietta flows proportional to drainage area and are therefore perfectly correlated with them. Evaporation rates over the Conowingo and Muddy Run Dams were obtained from an OASIS model simulation and are identical to one another. Flows are given in cfs and evaporation rates in in/day.
 
-To run the stationary streamflow generator, the data in `../data` first have to be processed into a 2D array where each row is the data on a different date, and each column is the flow/evaporation rate at a different site. Leap days are also removed from the time series to create a prediodic signal. This array can be generate by running `clean_data.m`, which write `../data/Qdaily.txt`. `clean_data.m` also writes files to `../validation/historical` which are used to make the validation figures.
+To run the stationary streamflow generator, the data in `../data` first have to be processed into a 2D array where each row is the data on a different date, and each column is the flow/evaporation rate at a different site. Leap days are also removed from the time series to create a prediodic signal. This array can be generate by running `clean_data.m`, which writes `../data/Qdaily.txt`. `clean_data.m` also writes files to `../validation/historical` which are used to make the validation figures.
 
 Once the data are pre-processed, the synthetic generator can be run with `script_example.m`. This will write files to `../validation/synthetic` for validation.
 
-Contents:
-`chol_corr.m`: Compute Cholesky decomposition of correlation matrix and attempts to repair non-positive definite matrices
+Contents:  
+`chol_corr.m`: Computes Cholesky decomposition of correlation matrix and attempts to repair non-positive definite matrices
 
 `clean_data.m`: Pre-processes historical data into format read by generator and validation codes
 
@@ -24,4 +24,4 @@ Contents:
 
 `monthly_main.m`: Calls `monthly_gen.m` to generate monthly streamflows for a specified number of realizations
 
-`script_example.m`: Shows how to use generate synthetic streamflows on a sample data set (the Susquehanna River Basin)
+`script_example.m`: Shows how to generate synthetic streamflows on a sample data set (the Susquehanna River Basin)
