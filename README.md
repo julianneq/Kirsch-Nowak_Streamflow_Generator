@@ -6,9 +6,11 @@ This repository contains code for generating correlated synthetic daily streamfl
 
 A full description is provided in `MethodDescription.pdf` in this directory. This code was used to generate the synthetic flows used in the following papers:  
   
-Giuliani, M., J.D. Quinn, J.D. Herman, A. Castelletti, P.M. Reed, "Scalable Multiobjective Control for Large-Scale Water Resources Systems Under Uncertainty", *IEEE Transactions on Control Systems Technology*, *99*, doi: [10.1109/TCST.2017.2705162](http://ieeexplore.ieee.org/document/7959085/);  
+Giuliani, M., J.D. Quinn, J.D. Herman, A. Castelletti and P.M. Reed, "Scalable multiobjective control for large-scale water resources systems under uncertainty", *IEEE Transactions on Control Systems Technology*, *99*, doi: [10.1109/TCST.2017.2705162](http://ieeexplore.ieee.org/document/7959085/), 2017.  
   
-Quinn, J.D., P.M. Reed, M. Giuliani and A. Castelletti, "Rival Framings: A framework for discovering how problem formulation uncertainties shape risk management trade-offs in water resources systems", *Water Resources Research*, *53*, doi: [10.1002/2017WR020524](http://onlinelibrary.wiley.com/doi/10.1002/2017WR020524/abstract). See that paper's supporting information for details on the methods and a statistical validation of the generator's performance.
+Quinn, J.D., P.M. Reed, M. Giuliani and A. Castelletti, "Rival Framings: A framework for discovering how problem formulation uncertainties shape risk management trade-offs in water resources systems", *Water Resources Research*, *53*, doi: [10.1002/2017WR020524](http://onlinelibrary.wiley.com/doi/10.1002/2017WR020524/abstract), 2017.
+
+Zatarain Salazar, J., P.M. Reed, J.D. Quinn, M. Giuliani and A. Castelletti, "Balancing exploration, uncertainty and computational demands in many objective reservoir optimization", *Advances in Water Resources*, In revision.
 
 Licensed under the GNU Lesser General Public License.
 
