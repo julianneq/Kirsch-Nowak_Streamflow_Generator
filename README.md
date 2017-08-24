@@ -6,11 +6,11 @@ This repository contains code for generating correlated synthetic daily streamfl
 
 A full description is provided in `MethodDescription.pdf` in this directory. This code was used to generate synthetic flows in the following papers:  
   
-* Giuliani, M., J.D. Quinn, J.D. Herman, A. Castelletti and P.M. Reed, "Scalable multiobjective control for large-scale water resources systems under uncertainty", *IEEE Transactions on Control Systems Technology*, *99*, doi: [10.1109/TCST.2017.2705162](http://ieeexplore.ieee.org/document/7959085/), 2017.  
+* Giuliani, M., J.D. Quinn, J.D. Herman, A. Castelletti and P.M. Reed, 2017, "Scalable multiobjective control for large-scale water resources systems under uncertainty", *IEEE Transactions on Control Systems Technology*, *99*, doi: [10.1109/TCST.2017.2705162](http://ieeexplore.ieee.org/document/7959085/).  
   
-* Quinn, J.D., P.M. Reed, M. Giuliani and A. Castelletti, "Rival Framings: A framework for discovering how problem formulation uncertainties shape risk management trade-offs in water resources systems", *Water Resources Research*, *53*, doi: [10.1002/2017WR020524](http://onlinelibrary.wiley.com/doi/10.1002/2017WR020524/abstract), 2017.
+* Quinn, J.D., P.M. Reed, M. Giuliani and A. Castelletti, 2017, "Rival Framings: A framework for discovering how problem formulation uncertainties shape risk management trade-offs in water resources systems", *Water Resources Research*, *53*, doi: [10.1002/2017WR020524](http://onlinelibrary.wiley.com/doi/10.1002/2017WR020524/abstract).
 
-* Zatarain Salazar, J., P.M. Reed, J.D. Quinn, M. Giuliani and A. Castelletti, "Balancing exploration, uncertainty and computational demands in many objective reservoir optimization", *Advances in Water Resources*, In revision.
+* Zatarain Salazar, J., P.M. Reed, J.D. Quinn, M. Giuliani and A. Castelletti, In revision, "Balancing exploration, uncertainty and computational demands in many objective reservoir optimization", *Advances in Water Resources*.
 
 Licensed under the GNU Lesser General Public License.
 
