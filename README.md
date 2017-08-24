@@ -4,13 +4,13 @@ By [Julianne Quinn](https://reed.cee.cornell.edu/index.php/Julianne_Quinn), [Mat
 
 This repository contains code for generating correlated synthetic daily streamflow time series at multiple sites assuming stationary hydrology. Monthly flows are generated using Cholesky decomposition (see [Kirsch et al. 2013](http://ascelibrary.org/doi/abs/10.1061/(ASCE)WR.1943-5452.0000287)) and then disaggregated to daily flows by proportionally scaling daily flows from a randomly selected historical month +/- 7 days as in [Nowak et al. (2010)](http://onlinelibrary.wiley.com/doi/10.1029/2009WR008530/full).
 
-A full description is provided in `MethodDescription.pdf` in this directory. This code was used to generate the synthetic flows used in the following papers:  
+A full description is provided in `MethodDescription.pdf` in this directory. This code was used to generate synthetic flows in the following papers:  
   
-Giuliani, M., J.D. Quinn, J.D. Herman, A. Castelletti and P.M. Reed, "Scalable multiobjective control for large-scale water resources systems under uncertainty", *IEEE Transactions on Control Systems Technology*, *99*, doi: [10.1109/TCST.2017.2705162](http://ieeexplore.ieee.org/document/7959085/), 2017.  
+* Giuliani, M., J.D. Quinn, J.D. Herman, A. Castelletti and P.M. Reed, "Scalable multiobjective control for large-scale water resources systems under uncertainty", *IEEE Transactions on Control Systems Technology*, *99*, doi: [10.1109/TCST.2017.2705162](http://ieeexplore.ieee.org/document/7959085/), 2017.  
   
-Quinn, J.D., P.M. Reed, M. Giuliani and A. Castelletti, "Rival Framings: A framework for discovering how problem formulation uncertainties shape risk management trade-offs in water resources systems", *Water Resources Research*, *53*, doi: [10.1002/2017WR020524](http://onlinelibrary.wiley.com/doi/10.1002/2017WR020524/abstract), 2017.
+* Quinn, J.D., P.M. Reed, M. Giuliani and A. Castelletti, "Rival Framings: A framework for discovering how problem formulation uncertainties shape risk management trade-offs in water resources systems", *Water Resources Research*, *53*, doi: [10.1002/2017WR020524](http://onlinelibrary.wiley.com/doi/10.1002/2017WR020524/abstract), 2017.
 
-Zatarain Salazar, J., P.M. Reed, J.D. Quinn, M. Giuliani and A. Castelletti, "Balancing exploration, uncertainty and computational demands in many objective reservoir optimization", *Advances in Water Resources*, In revision.
+* Zatarain Salazar, J., P.M. Reed, J.D. Quinn, M. Giuliani and A. Castelletti, "Balancing exploration, uncertainty and computational demands in many objective reservoir optimization", *Advances in Water Resources*, In revision.
 
 Licensed under the GNU Lesser General Public License.
 
