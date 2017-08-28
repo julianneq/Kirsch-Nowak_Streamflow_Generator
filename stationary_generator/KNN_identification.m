@@ -1,4 +1,4 @@
-function [KNN_id, W] = KNN_identification( Z, Qpatterns, month, k )
+function [KNN_id, W] = KNN_identification( Z, Qtotals, month, k )
 
 % [KNN_id, W] = KNN_identification( Z, z )
 %
@@ -16,25 +16,25 @@ function [KNN_id, W] = KNN_identification( Z, Qpatterns, month, k )
 %
 % MatteoG 31/05/2013
 
-% Npatterns is the number of historical patterns used for disaggregation.
+% Ntotals is the number of historical monthly patterns used for disaggregation.
 % A pattern is a sequence of ndays of daily flows, where ndays is the
 % number of days in the month being disaggregated. Patterns are all
 % historical sequences of length ndays beginning within 7 days before or
 % after the 1st day of the month being disaggregated.
-Npatterns = size(Qpatterns{month},1);
+Ntotals = size(Qtotals{month},1);
 if( nargin<4 )
-    K = round(sqrt(Npatterns));
+    K = round(sqrt(Ntotals));
 else
     K = k ;
 end
 
 % nearest neighbors identification;
 % only look at neighbors from the same month +/- 7 days
-Nsites = size(Qpatterns{month},2);
-delta = zeros([Npatterns,1]); % first and last month have 7 less possible shifts
-for i=1:Npatterns
+Nsites = size(Qtotals{month},2);
+delta = zeros([Ntotals,1]); % first and last month have 7 less possible shifts
+for i=1:Ntotals
     for j=1:Nsites
-            delta(i) = delta(i) + (Qpatterns{month}(i,j)-Z(1,1,j))^2;
+            delta(i) = delta(i) + (Qtotals{month}(i,j)-Z(1,1,j))^2;
     end
 end
 
