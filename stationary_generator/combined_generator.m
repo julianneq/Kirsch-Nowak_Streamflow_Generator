@@ -6,7 +6,7 @@ Nsites = size(hist_data,2);
 % Kirsch, B. R., G. W. Characklis, and H. B. Zeff (2013), 
 % Evaluating the impact of alternative hydro-climate scenarios on transfer 
 % agreements: Practical improvement for generating synthetic streamflows, 
-% Journal of Water Resources Planning and Management, 139(4), 396–406.
+% Journal of Water Resources Planning and Management, 139(4), 396â€“406.
 QQg = monthly_main(hist_data, nR, nY );
 Qh = convert_data_to_monthly(hist_data);
 Nyears = size(Qh{1},1);
@@ -34,12 +34,12 @@ extra_hist_data = [hist_data(nrows-7:nrows,:); hist_data; hist_data(1:8,:)];
 for i=1:12
     count = 1;
     if i == 1 || i == 12
-        nPatterns = Nyears*15-7; % 7 less shifts in first and last month
+        nTotals = Nyears*15-7; % 7 less shifts in first and last month
     else
-        nPatterns = Nyears*15;
+        nTotals = Nyears*15;
     end
-    Qmonthly_shifted = zeros(nPatterns,Nsites);
-    indices = zeros(nPatterns,2);
+    Qmonthly_shifted = zeros(nTotals,Nsites);
+    indices = zeros(nTotals,2);
     for k = 1:15
         shifted_hist_data = extra_hist_data(k:k+nrows-1,:);
         Qh = convert_data_to_monthly(shifted_hist_data);
@@ -59,7 +59,7 @@ for i=1:12
         indices(count:(count+size(Qh{j},1)-1),2) = k;
         count = count + size(Qh{j},1);
     end
-    Qpatterns{i} = Qmonthly_shifted;
+    Qtotals{i} = Qmonthly_shifted;
     Qindices{i} = indices;
 end
 
@@ -73,7 +73,7 @@ for r=1:nR
         if month == 0
             month = 12;
         end
-        [KNN_id, W] = KNN_identification(Z, Qpatterns, month);
+        [KNN_id, W] = KNN_identification(Z, Qtotals, month);
         Wcum = cumsum(W);
             
         %sampling of one KNN
