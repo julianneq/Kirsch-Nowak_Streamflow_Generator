@@ -6,13 +6,15 @@ function [KNN_id, W] = KNN_identification( Z, Qtotals, month, k )
 % z and computation of the associated weights W.
 %
 % Input:    Z = synthetic datum (scalar)
-%           z = historical annual data 
+%           Qtotals = total monthly flows at all sites for all historical months 
+%             within +/- 7 days of the month being disaggregated
+%           month = month being disaggregated
 %           k = number of nearest neighbors (by default k=n_year^0.5
-%           according to Lall and Sharma (1996))
+%             according to Lall and Sharma (1996))
 % Output:   KNN_id = indices of the first K-nearest neighbors of Z in the
-%           the historical annual data z
+%             the historical annual data z
 %           W = nearest neighbors weights, according to Lall and Sharma
-%           (1996): W(i) = (1/i) / (sum(1/i)) 
+%             (1996): W(i) = (1/i) / (sum(1/i)) 
 %
 % MatteoG 31/05/2013
 
