@@ -1,6 +1,6 @@
 function [KNN_id, W] = KNN_identification( Z, Qtotals, month, k )
 
-% [KNN_id, W] = KNN_identification( Z, z )
+% [KNN_id, W] = KNN_identification( Z, Qtotals, month, k )
 %
 % Identification of K-nearest neighbors of Z in the historical annual data
 % z and computation of the associated weights W.
