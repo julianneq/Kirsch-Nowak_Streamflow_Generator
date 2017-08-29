@@ -74,11 +74,10 @@ def boxplots(syn, hist, xticks=True, legend=True, loc='upper right'):
 space = ['real','log']
 legend_loc = ['upper right','lower left']
 site = 'qMarietta'
-for j in range(2):
-    H = np.loadtxt('historical/' + site + '-monthly.csv', delimiter=',') # n_historical_years x 12
-    S = np.loadtxt('synthetic/' + site + '-100x100-monthly.csv', delimiter=',') # n_realizations x 12*n_synthetic_years
-    S = S.reshape((np.shape(S)[0],int(np.shape(S)[1]/12),12)) # n_realizations x n_synthetic_years x 12
-    
+H = np.loadtxt('historical/' + site + '-monthly.csv', delimiter=',') # n_historical_years x 12
+S = np.loadtxt('synthetic/' + site + '-100x100-monthly.csv', delimiter=',') # n_realizations x 12*n_synthetic_years
+S = S.reshape((np.shape(S)[0],int(np.shape(S)[1]/12),12)) # n_realizations x n_synthetic_years x 12
+for j in range(2):    
     # j = 0: real-space, j=1: log-space
     if j == 1:
         H = np.log(H)

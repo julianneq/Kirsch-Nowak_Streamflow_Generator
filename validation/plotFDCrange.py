@@ -32,7 +32,8 @@ def init_plotting():
 init_plotting()
 
 def plotFDCrange(syntheticData, histData, sites, evapIndices):
-
+    '''Plots the upper and lower bound of each site's FDCs under 
+    all annual historical and synthetic time series'''
     n = 365
     M = np.array(range(1,n+1))
     P = (M-0.5)/n
