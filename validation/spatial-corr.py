@@ -79,7 +79,7 @@ titleStep = ['Monthly', 'Daily']
 totalSteps = [12,365]
 
 n_bootstrap = 100
-n_pairs = len(sites)*(len(sites)-1)/2
+n_pairs = int(len(sites)*(len(sites)-1)/2)
 rh = np.zeros((n_bootstrap,n_pairs))
 rs = np.zeros((n_bootstrap,n_pairs))
 rhl = np.zeros((n_bootstrap,n_pairs))
