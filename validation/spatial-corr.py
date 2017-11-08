@@ -79,11 +79,11 @@ titleStep = ['Monthly', 'Daily']
 totalSteps = [12,365]
 
 n_bootstrap = 100
-n_pairs = 6
+n_pairs = len(sites)*(len(sites)-1)/2
 rh = np.zeros((n_bootstrap,n_pairs))
-rs = np.zeros((100,n_pairs))
+rs = np.zeros((n_bootstrap,n_pairs))
 rhl = np.zeros((n_bootstrap,n_pairs))
-rsl = np.zeros((100,n_pairs))
+rsl = np.zeros((n_bootstrap,n_pairs))
   
 # plot daily and monthly side by side, with a separate plot for each space (real or log)
 space = ['-real','-log']
