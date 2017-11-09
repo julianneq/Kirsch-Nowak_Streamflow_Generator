@@ -146,7 +146,7 @@ for k in range(len(space)):
         ax.set_xlim([0,n_pairs+1])
         ax.set_ylim([0,1])
         ax.plot([0,14],[0.05,0.05], color='k')
-        ax.set_xticks(range(1,7))
+        ax.set_xticks(range(1,n_pairs+1))
         ax.set_yticks(np.arange(0.0,1.1,0.2))
         if t == 1:
             ax.set_yticklabels([])
