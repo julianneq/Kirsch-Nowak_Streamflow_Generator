@@ -62,8 +62,8 @@ def MonsoonalRescaling(sites, k, evapIndices):
             NewMonthlyQ = calcNewMonthlyQ(LogMonthlyZ, meanMultipliers, stdMultipliers, meanMatrix[i,:], stdMatrix[i,:])
             NewDailyQ = calcNewDailyQ(NewMonthlyQ, P, dayOfYear, daysPerMonth)
             # convert evaporation back to real-space
-            for index in evapIndices:
-                NewDailyQ[:,index] = np.log(NewDailyQ[:,index])
+            if i in evapIndices:
+                NewDailyQ = np.log(NewDailyQ)
 
             np.savetxt('./rescaledFlows/' + sites[i] + '_Sample' + str(j+1) + '.csv',NewDailyQ, fmt='%.3f', delimiter=',')
     
