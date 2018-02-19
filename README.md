@@ -16,7 +16,7 @@ Licensed under the GNU Lesser General Public License.
 
 Contents:
 
-* `monsoonal_rescaling`: Directory containing Python code to rescale synthetic streamflows by changing log-space mean, log-space standard deviation, and amplitudes and phase shifts of harmonics fit to the log-space annual cycle. This method is used for the Red River basin in Vietnam in the following paper: Quinn, J.D., P.M. Reed, M. Giuliani, A. Castelletti, J.W. Oyler, R.E. Nicholas, In Revision, "Exploring how changing monsoonal dynamics and human pressures challenge multi-reservoir management of food-energy-water tradeoffs", *Water Resources Research*.
+* `monsoonal_rescaling`: Directory containing Python code to rescale synthetic streamflows by changing the log-space mean, log-space standard deviation, and amplitudes and phase shifts of harmonics fit to the log-space annual cycle. Includes a README describing how to run the code. This method is used for the Red River basin in Vietnam in the following paper: Quinn, J.D., P.M. Reed, M. Giuliani, A. Castelletti, J.W. Oyler, R.E. Nicholas, In Revision, "Exploring how changing monsoonal dynamics and human pressures challenge multi-reservoir management of food-energy-water tradeoffs", *Water Resources Research*.
 
 * `data`: Directory containing example data set for the Susquehanna River Basin (for a description of the system, see Giuliani, M., J.D. Herman, A. Castellett, P.M. Reed, 2014, "Many-objective reservoir policy identification and refinement to reduce policy inertia and myopia in water management", *Water Resources Research*, *50*, doi: [10.1002/ 2013WR014700](http://onlinelibrary.wiley.com/doi/10.1002/2013WR014700/full))
 
