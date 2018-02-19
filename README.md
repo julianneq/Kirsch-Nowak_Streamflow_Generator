@@ -18,6 +18,6 @@ Contents:
 
 * `data`: Directory containing example data set for the Susquehanna River Basin (for a description of the system, see Giuliani, M., J.D. Herman, A. Castellett, P.M. Reed, 2014, "Many-objective reservoir policy identification and refinement to reduce policy inertia and myopia in water management", *Water Resources Research*, *50*, doi: [10.1002/ 2013WR014700](http://onlinelibrary.wiley.com/doi/10.1002/2013WR014700/full))
 
-* `generator`: Directory containing MATLAB code to generate correlated synthetic daily streamflow time series at multiple sites assuming stationary hydrology. Includes a README describing how to run the code.
+* `stationary_generator`: Directory containing MATLAB code to generate correlated synthetic daily streamflow time series at multiple sites assuming stationary hydrology. Includes a README describing how to run the code.
 
 * `validation`: Directory containing Python code to validate performance of synthetic streamflow generator. Includes a README describing how to run the code.
