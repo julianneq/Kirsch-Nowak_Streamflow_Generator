@@ -1,0 +1,6 @@
+meanMultiplier 0.95 1.05
+stdMultiplier 0.5 1.5
+ampMultiplier1 0.5 1.5
+phaseShift1 -0.52 0.52
+ampMultiplier2 0.5 1.5
+phaseShift2 -0.52 0.52
