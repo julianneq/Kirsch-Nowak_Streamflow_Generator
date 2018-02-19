@@ -161,6 +161,6 @@ def calcNewDailyQ(NewMonthlyQ, P, dayOfYear, daysPerMonth):
 assure_path_exists(os.getcwd() + '/rescaledFlows/')
 
 sites = ['qMarietta', 'qMuddyRun', 'qLateral', 'evapConowingo']
-k = [1,2]
+k = [1,2] # which harmonics to fit to annual cycle - this is fitting the first two (changing this will require other changes in this code and `uncertain_params.txt`)
 evapIndices = [3]
 MonsoonalRescaling(sites, k, evapIndices)
