@@ -10,7 +10,7 @@ A full description is provided in `MethodDescription.pdf` in this directory. Thi
   
 * Quinn, J.D., P.M. Reed, M. Giuliani and A. Castelletti, 2017, "Rival Framings: A framework for discovering how problem formulation uncertainties shape risk management trade-offs in water resources systems", *Water Resources Research*, *53*, doi: [10.1002/2017WR020524](http://onlinelibrary.wiley.com/doi/10.1002/2017WR020524/abstract).
 
-* Zatarain Salazar, J., P.M. Reed, J.D. Quinn, M. Giuliani and A. Castelletti, In revision, "Balancing exploration, uncertainty and computational demands in many objective reservoir optimization", *Advances in Water Resources*.
+* Zatarain Salazar, J., P.M. Reed, J.D. Quinn, M. Giuliani and A. Castelletti, 2017, "Balancing exploration, uncertainty and computational demands in many objective reservoir optimization", *Advances in Water Resources*, *109*, 196-210, doi: [10.1016/j.advwatres.2017.09.014](https://doi.org/10.1016/j.advwatres.2017.09.014)
 
 Licensed under the GNU Lesser General Public License.
 
