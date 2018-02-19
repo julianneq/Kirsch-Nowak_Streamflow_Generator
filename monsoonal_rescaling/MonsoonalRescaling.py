@@ -51,6 +51,10 @@ def MonsoonalRescaling(sites, k, evapIndices):
     # calculate rescaled flows
     for i in range(nSites):
         DailyFlows = np.loadtxt('../validation/synthetic/' + sites[i] + '-1000x1-daily.csv',delimiter=',')
+        # make normally distributed evaporation log-normal like flows
+        if i in evapIndices:
+            DailyFlows = np.exp(DailyFlows)
+            
         LogMonthlyZ, P = calcLogMonthlyZ(DailyFlows, dayOfYear, meanMatrix[i,:], stdMatrix[i,:])
         for j in range(nScenarios):
             meanMultipliers, stdMultipliers = calcMultipliers(LHsamples[j,0], LHsamples[j,1], [LHsamples[j,2], LHsamples[j,4]],\
