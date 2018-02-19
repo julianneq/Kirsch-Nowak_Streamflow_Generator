@@ -1,6 +1,6 @@
 # Kirsch-Nowak_Streamflow_Generator
 
-By [Matteo Giuliani](http://giuliani.faculty.polimi.it), [Jon Herman](http://herman.faculty.ucdavis.edu/) and [Julianne Quinn](https://reed.cee.cornell.edu/index.php/Julianne_Quinn)
+By [Matteo Giuliani](http://giuliani.faculty.polimi.it), [Jon Herman](http://herman.faculty.ucdavis.edu/) and [Julianne Quinn](https://www.linkedin.com/in/julianne-quinn-411a2a13)
 
 This repository contains code for generating correlated synthetic daily streamflow time series at multiple sites assuming stationary hydrology. Monthly flows are generated using Cholesky decomposition (see [Kirsch et al. 2013](http://ascelibrary.org/doi/abs/10.1061/(ASCE)WR.1943-5452.0000287)) and then disaggregated to daily flows by proportionally scaling daily flows from a randomly selected historical month +/- 7 days as in [Nowak et al. (2010)](http://onlinelibrary.wiley.com/doi/10.1029/2009WR008530/full).
 
