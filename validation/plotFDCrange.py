@@ -43,8 +43,10 @@ def plotFDCrange(syntheticData, histData, sites, evapIndices):
         # load data for site j
         histData_j = histData[:,j]
         syntheticData_j = syntheticData[:,j]
-        f_hist = np.reshape(histData_j, (len(histData_j)/n, n))
-        f_syn = np.reshape(syntheticData_j, (len(syntheticData_j)/n, n))
+        histData_newshape = (len(histData_j)//n, n)  # note: use floor division - https://stackoverflow.com/questions/42989289/python-typeerror-float-object-cannot-be-interpreted-as-an-integer
+        f_hist = np.reshape(histData_j, histData_newshape)
+        syntheticData_newshape = (len(syntheticData_j)//n, n)  # note: use floor division - https://stackoverflow.com/questions/42989289/python-typeerror-float-object-cannot-be-interpreted-as-an-integer
+        f_syn = np.reshape(syntheticData_j, syntheticData_newshape)
         
         # calculate historical FDCs
         F_hist = np.empty(np.shape(f_hist))
