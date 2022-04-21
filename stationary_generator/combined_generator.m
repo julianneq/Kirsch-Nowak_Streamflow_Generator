@@ -45,11 +45,11 @@ for i=1:12
         Qh = convert_data_to_monthly(shifted_hist_data);
         for j=1:Nsites
             if i == 1 && k<8
-                Qh{j} = Qh{j}(2:size(Qh{j},1),i); % remove first year
+                Qh{j} = Qh{j}(2:size(Qh{j},1),:); % remove first year
             elseif i == 12 && k>8
-                Qh{j} = Qh{j}(1:(size(Qh{j},1)-1),i); % remove last year
+                Qh{j} = Qh{j}(1:(size(Qh{j},1)-1),:); % remove last year
             end
-            Qmonthly_shifted(count:(count+size(Qh{j},1)-1),j) = Qh{j}(:,1);
+            Qmonthly_shifted(count:(count+size(Qh{j},1)-1),j) = Qh{j}(:,i);
         end
         if i == 1 && k<8
             indices(count:(count+size(Qh{j},1)-1),1) = 2:(size(Qh{j},1)+1);
